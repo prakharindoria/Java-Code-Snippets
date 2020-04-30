@@ -14,9 +14,9 @@ import java.util.Date;
  */
 public class DatePrint {
     public static void main(String[] args) {
-        Date today =new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");
-        String date=sdf.format(today);
+        Date today =new Date();//Created Date reference and object.
+        SimpleDateFormat sdf=new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");//Created SDF object.
+        String date=sdf.format(today);//Pass date object in SDF and Store result in String object.
         System.out.println(date);
     }
     

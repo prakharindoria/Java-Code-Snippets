@@ -11,6 +11,8 @@ import java.util.Scanner;
  *
  * @author wweeeeeee
  */
+//Program that asks input for total monthly sale values of salesmans and determine salesman of the month.
+//Needs Optimizations
 public class SalesmanJaggedArray {
     public static void main(String[] args) {
         System.out.println("How many Salesman? ");
@@ -22,7 +24,7 @@ public class SalesmanJaggedArray {
         float sum=0,count=0;
         double avg=0;
         int index=0;
-        
+        //Input in jagged 2D Array
         for (int i = 0; i < numOfSalesman; i++) {
             System.out.println("How many Sales for Salesman "+(i+1));
             int sales=kb.nextInt();
@@ -35,7 +37,7 @@ public class SalesmanJaggedArray {
         
        
              System.out.println("Values are: ");
-       
+       //Calculate Sum and Average values
         for (int i = 0; i < arr.length; i++) {
                 System.out.print("Salesman "+(i+1)+" Values  : ");
             for (int j = 0; j < arr[i].length; j++) {

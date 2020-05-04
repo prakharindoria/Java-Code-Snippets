@@ -24,30 +24,32 @@ public class JdbcConnectionUitEmp {
     public static void main(String[] args) {
         
 try{ 
+   
    Class.forName("oracle.jdbc.driver.OracleDriver");
-   System.out.println("Hello");
    Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@//Prakhar:1521:xe","system","admin");
-    System.out.println("hi");
    JOptionPane.showMessageDialog(null,"Connection done Succesfully");
    Statement st=conn.createStatement();
    ResultSet rs=st.executeQuery("Select ename,hiredate from uitemp");
+   //Getting Hire Date from database.
    SimpleDateFormat sdf=new SimpleDateFormat();
    while(rs.next()){
    String ename=rs.getString(1);
    Date d=rs.getDate(2);
    String str=sdf.format(d);
-       System.out.println(ename+"\t"+str);
+   System.out.println(ename+"\t"+str);
    }
    
 }
-catch(  ClassNotFoundException | SQLException cnfe)
-{
+catch(ClassNotFoundException cnfe){
 JOptionPane.showMessageDialog(null,"Cannot Load Successfully"+cnfe);
 cnfe.printStackTrace();
+
+catch(SQLException sqlex){
+JOptionPane.showMessageDialog(null,"Cannot Load Successfully"+sqlex);
+sqlex.printStackTrace();
 }
+
+
 }
- 
- 
-    
- 
+
 }

@@ -14,16 +14,15 @@ import java.util.Scanner;
 public class UseOopsDemo {
     public static void main(String[] args) {
         Scanner kb=new Scanner(System.in);
-        double r;
-        double a,c;
+        double radius,area,circum;
         System.out.println("Enter Radius: ");
-        r=kb.nextDouble();
+        radius=kb.nextDouble();
         OopsDemo obj =new OopsDemo();
         obj.setRadius(r);
-        a=obj.calcArea();
-        c=obj.calcCircum();
-        System.out.println("Area is : "+a);
-        System.out.println("Circumference is : "+c);
+        area=obj.calcArea();
+        circum=obj.calcCircum();
+        System.out.println("Area is : "+area);
+        System.out.println("Circumference is : "+circum);
     }
     
 }

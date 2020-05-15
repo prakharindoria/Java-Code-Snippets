@@ -18,6 +18,7 @@ public class DatePrint {
         SimpleDateFormat sdf=new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss");//Created SDF object.
         String date=sdf.format(today);//Pass date object in SDF and Store result in String object.
         System.out.println(date);
+        long ende=System.currentTimeMillis()
     }
     
 }

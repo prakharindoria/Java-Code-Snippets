@@ -1,5 +1,6 @@
 import java.sql.*;
-class MyJdbcApp1
+import java.util.*;
+class MyJdbcApp5PreparedStatement
 {
 public static void main(String[] args)
 {
@@ -9,14 +10,30 @@ try{
 	Class.forName("oracle.jdbc.OracleDriver");
 	conn=DriverManager.getConnection("jdbc:oracle:thin:@//LAPTOP-Q82125JL:1521/xe","advjavabatch","admin");
 	System.out.println("Connection Successfully opened");
-	Statement st=conn.createStatement();
-	ResultSet rs=st.executeQuery("Select bookname,bookprice from allbooks");
-	while(rs.next())
-	{
-		String bname=rs.getString(1);
-		double amount=rs.getDouble(2);
-		System.out.println(bname+"\t\t"+amount);
-	}
+
+	Scanner kb =new Scanner(System.in);
+
+	System.out.println("Enter BookId");
+	int bid=kb.nextInt();
+
+	kb.nextLine();
+	System.out.println("Enter Book Name");
+	String bname=kb.nextLine();
+
+	System.out.println("Enter Book Subject");
+	String sub=kb.nextLine();
+
+	System.out.println("Enter Book Price");
+	double price=kb.nextDouble();
+
+	PreparedStatement ps=conn.prepareStatement("Insert into allbooks values(?,?,?,?)");
+	ps.setInt(1,bid);
+	ps.setString(2,bname);
+	ps.setDouble(4,price);
+	ps.setString(3,sub);
+
+	int ans=ps.executeUpdate();
+	System.out.println("Rec Inserted"+ans);
 }
 catch(SQLException sqle)
 { 

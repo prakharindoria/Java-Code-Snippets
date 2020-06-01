@@ -1,5 +1,6 @@
 import java.sql.*;
-class MyJdbcApp1
+import java.util.*;
+class MyJdbcApp5PreparedStatementUpdate
 {
 public static void main(String[] args)
 {
@@ -9,14 +10,23 @@ try{
 	Class.forName("oracle.jdbc.OracleDriver");
 	conn=DriverManager.getConnection("jdbc:oracle:thin:@//LAPTOP-Q82125JL:1521/xe","advjavabatch","admin");
 	System.out.println("Connection Successfully opened");
-	Statement st=conn.createStatement();
-	ResultSet rs=st.executeQuery("Select bookname,bookprice from allbooks");
-	while(rs.next())
-	{
-		String bname=rs.getString(1);
-		double amount=rs.getDouble(2);
-		System.out.println(bname+"\t\t"+amount);
-	}
+
+	Scanner kb =new Scanner(System.in);
+
+	System.out.println("Enter Book Subject");
+	String sub=kb.nextLine();
+
+	System.out.println("Enter Book Price Hike");
+	double uPrice=kb.nextDouble();
+
+
+	PreparedStatement ps=conn.prepareStatement("Update allbooks set bookprice=bookprice+? where subject=?");
+	ps.setString(2,sub);
+	ps.setDouble(1,uPrice);
+
+
+	int ans=ps.executeUpdate();
+	System.out.println("Rec Updated: "+ans);
 }
 catch(SQLException sqle)
 { 
@@ -40,7 +50,7 @@ finally{
 		}
 
 }
-//LAPTOP-Q82125JL
+
 
 
 }

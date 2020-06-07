@@ -9,13 +9,29 @@ try{
 	Class.forName("oracle.jdbc.OracleDriver");
 	conn=DriverManager.getConnection("jdbc:oracle:thin:@//LAPTOP-Q82125JL:1521/xe","advjavabatch","admin");
 	System.out.println("Connection Successfully opened");
-	Statement st=conn.createStatement(ResultSet.TYPE_SCROL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	Statement st=conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 	ResultSet rs=st.executeQuery("Select subject,bookprice from allbooks");
+	int count=0;
 
 	while(rs.next())
 	{
-		String str=rs.getString(2);
+		String str=rs.getString(1);
+		if(str.equalsIgnoreCase("C"))
+		{
+		double amt=rs.getDouble(2);
+		amt=amt+amt*0.1;
+		rs.updateDouble(2,amt);
+		count++;
+		rs.updateRow();
 	}
+	
+
+
+	}
+        if(count>0)
+		{System.out.println("Books Updated: "+count);}
+	else 
+		{System.out.println("Sorry No Books");}
 }
 catch(SQLException sqle)
 { 

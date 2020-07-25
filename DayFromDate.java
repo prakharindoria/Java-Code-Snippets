@@ -12,7 +12,7 @@ int dd=kb.nextInt();
 int mm=kb.nextInt();
 int yyyy=kb.nextInt();
 String res=Result.findDay(dd,mm,yyyy);
-System.out.println("Dsy is"+res);
+System.out.println("Day is"+res);
 
 
 }

@@ -18,24 +18,14 @@ Output Format
 Print the  value of each node in the tree's level-order traversal as a single line of  space-separated integers.
 
 Sample Input
+6 3 5 4 7 2 1
 
-6
-3
-5
-4
-7
-2
-1
 Sample Output
-
 3 2 5 1 4 7 
+
 Explanation
-
-The input forms the following binary search tree:
-BST.png
-
+The input forms the following binary search tree: bst.png
 We traverse each level of the tree from the root downward, and we process the nodes at each level from left to right. The resulting level-order traversal is , and we print these data values as a single line of space-separated integers.
-
 */
 
 
@@ -44,15 +34,15 @@ import java.util.*;
 class Node{
     Node left,right;
     int data;
-    Node(int data){
-        this.data=data;
-        left=right=null;
-    }
+	
+    Node(int data)
+    {this.data=data;
+        left=right=null;}	
 }
-class Solution{
 
+
+class Solution{
 	static void levelOrder(Node root){
-      //Write your code here //BFS
         Queue<Node> q=new LinkedList<>();
         q.add(root);
 
@@ -64,23 +54,28 @@ class Solution{
         }
     }
 
+	
+	
 	public static Node insert(Node root,int data){
-        if(root==null){
+        if(root==null)
             return new Node(data);
-        }
+		
         else{
-            Node cur;
-            if(data<=root.data){
-                cur=insert(root.left,data);
-                root.left=cur;
-            }
-            else{
-                cur=insert(root.right,data);
-                root.right=cur;
-            }
+            	Node cur;
+           	 if(data<=root.data){
+                	cur=insert(root.left,data);
+                	root.left=cur;
+            		}
+            	else{
+                	cur=insert(root.right,data);
+                	root.right=cur;
+           		}
             return root;
-        }
+            }
     }
+	
+	
+	
     public static void main(String args[]){
             Scanner sc=new Scanner(System.in);
             int T=sc.nextInt();

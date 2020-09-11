@@ -18,6 +18,6 @@ public class StringHeapAreaStringPoolArea {
         System.out.println(s1==s3);//True As both in String pool Area points to same String.
         System.out.println(s1.equals(s2));//True As .equals() method evaluates their values and not address.
 
-
+//References http://courses.cs.tau.ac.il/software1/1516a/recitations/resources/String,StringBuffer,StringBuilder.pdf
     }
 }

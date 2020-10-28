@@ -3,6 +3,12 @@ public class Book {
         return bname;
     }
 
+    public Book(String bname,String bauthor, double bprice) {
+        this.bname = bname;
+        this.bauthor = bauthor;
+        this.bprice = bprice;
+    }
+
     public double getBprice() {
         return bprice;
     }

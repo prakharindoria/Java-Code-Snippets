@@ -44,6 +44,7 @@ public class ViewAllEmpFrame extends javax.swing.JFrame {
 
         jLabel1.setText("View All Emp Records");
 
+        txtArea.setEditable(false);
         txtArea.setColumns(20);
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
@@ -111,45 +112,49 @@ public class ViewAllEmpFrame extends javax.swing.JFrame {
 
     private void BtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBackActionPerformed
         // TODO add your handling code here:
-        OptionFrame optionFrame=new OptionFrame();
+        OptionFrame optionFrame = new OptionFrame();
         optionFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnBackActionPerformed
 
     private void btnShowAllEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAllEmpActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
 
-          ArrayList <EmpPojo> empList=EmpDao.getAllEmp();
-          if(empList.size()==0){
+            ArrayList<EmpPojo> empList = EmpDao.getAllEmp();
+            if (empList.size() == 0) {
 
-          JOptionPane.showMessageDialog(null,"No Employee Present!!", "Empty Values!!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No Employee Present!!", "Empty Values!!", JOptionPane.ERROR_MESSAGE);
 
-          return;
+                return;
 
-          }
-       
+            }
+        
+            
+            StringBuilder sb = new StringBuilder();
 
-String str=new String();
+            txtArea.setText("");
+            
 
-txtArea.setText("");
+            
 
-str="EMPNO \t ENAME \t SALARY\n\n";
+        for (EmpPojo e : empList) {
 
-for(EmpPojo e: empList){
-
-str=str+e.getEmpno()+"\t"+e.getEname()+"\t"+e.getSal()+"\n";
-}
-txtArea.setText(str);
-}
-
-catch(SQLException ex){
-
-JOptionPane.showMessageDialog(null,"Problem In The Database!!", "Error!!", JOptionPane.ERROR_MESSAGE);
-
-System.out.println("SQLException is "+ex);
-
-}
+                sb.append(e.getEmpno()+"\t"+e.getEname()+"\t"+e.getSal()+"\n");
+            }
+            txtArea.append("EmpID\tEmpName\tEmpSalary\n\n");
+           txtArea.append(sb.toString());
+        } catch(NumberFormatException nfe){
+           JOptionPane.showMessageDialog(null,"Please input digits only","Error!",JOptionPane.ERROR_MESSAGE);
+           nfe.printStackTrace();
+        }
+        catch(SQLException sqle){
+           JOptionPane.showMessageDialog(null,"SQL Error","Error!",JOptionPane.ERROR_MESSAGE);
+           sqle.printStackTrace();
+        }
+        
+        
+        
     }//GEN-LAST:event_btnShowAllEmpActionPerformed
 
     /**

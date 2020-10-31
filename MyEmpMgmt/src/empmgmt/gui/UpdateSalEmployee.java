@@ -25,7 +25,7 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
     }
     private boolean validateInputs(){
     empno=txtempno.getText();
-    sal=txtNewSal.getText();
+    sal=txtEmpSal.getText();
     if(empno.isEmpty())
     return false;
     return true;
@@ -47,9 +47,9 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
         btnUpdateSal = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtNewSal = new javax.swing.JTextField();
+        txtEmpSal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtNewName = new javax.swing.JTextField();
+        txtEmpName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +57,12 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
         jLabel2.setText("Update Employee Salary:");
 
         jLabel1.setText("EmpNo.");
+
+        txtempno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtempnoActionPerformed(evt);
+            }
+        });
 
         btnUpdateSal.setText("Update ");
         btnUpdateSal.addActionListener(new java.awt.event.ActionListener() {
@@ -76,9 +82,9 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
 
         jLabel4.setText("Emp Name:");
 
-        txtNewName.addActionListener(new java.awt.event.ActionListener() {
+        txtEmpName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewNameActionPerformed(evt);
+                txtEmpNameActionPerformed(evt);
             }
         });
 
@@ -108,8 +114,8 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
                                     .addComponent(txtempno, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNewSal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtEmpSal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,11 +130,11 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNewSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmpSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateSal)
@@ -158,15 +164,17 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
         }
         try{
         int eno=Integer.parseInt(empno);
+        String newEname=txtEmpName.getText();
         double esal=Double.parseDouble(sal);
         EmpPojo e=new EmpPojo();
         e.setEmpno(eno);
+        e.setEname(newEname);
         e.setSal(esal);
-        e=EmpDao.updateSalEmp(eno);
-        if(e!=null)
-            JOptionPane.showMessageDialog(null,"Record Updated!");
+        boolean b=EmpDao.updateEmp(e);
+        if(b==false)
+            JOptionPane.showMessageDialog(null,"Record Not Updated!");
         else
-            JOptionPane.showMessageDialog(null,"Record Not Updated");
+            JOptionPane.showMessageDialog(null,"Record Updated");
         }
         catch(NumberFormatException nfe){
            JOptionPane.showMessageDialog(null,"Please input digits only","Error!",JOptionPane.ERROR_MESSAGE);
@@ -189,9 +197,28 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void txtNewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewNameActionPerformed
+    private void txtEmpNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewNameActionPerformed
+    }//GEN-LAST:event_txtEmpNameActionPerformed
+
+    private void txtempnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtempnoActionPerformed
+        // TODO add your handling code here:
+        int empId=Integer.parseInt(txtempno.getText().trim());
+        try{
+        EmpPojo e=EmpDao.findEmpByID(empId);
+        txtEmpName.setText(e.getEname());
+        txtEmpSal.setText(String.valueOf(e.getSal()));
+        }
+        catch (SQLException sqlx) {
+
+            JOptionPane.showMessageDialog(null, "Problem In The Database!!", "Error!!", JOptionPane.ERROR_MESSAGE);
+            sqlx.printStackTrace();
+
+        }
+        
+        
+        
+    }//GEN-LAST:event_txtempnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,8 +263,8 @@ public class UpdateSalEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtNewName;
-    private javax.swing.JTextField txtNewSal;
+    private javax.swing.JTextField txtEmpName;
+    private javax.swing.JTextField txtEmpSal;
     private javax.swing.JTextField txtempno;
     // End of variables declaration//GEN-END:variables
 }

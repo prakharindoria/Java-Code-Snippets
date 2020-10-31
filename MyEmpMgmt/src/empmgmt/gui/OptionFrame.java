@@ -19,6 +19,7 @@ public class OptionFrame extends javax.swing.JFrame {
      */
     public OptionFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

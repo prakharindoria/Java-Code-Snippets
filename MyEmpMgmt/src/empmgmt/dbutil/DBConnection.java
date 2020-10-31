@@ -12,11 +12,11 @@ import javax.swing.JOptionPane;
 
 public class DBConnection {
     //In this class we will Load Driver in static block.
-    private static Connection conn;//taaki ek he baar chle
-    static{
+    private static Connection conn;//As req in more than one places && so that cann be accessed within static block.
+    static{//As we only want connection to open once in our application.
         try{
               Class.forName("oracle.jdbc.OracleDriver");
-              conn=DriverManager.getConnection("jdbc:oracle:thin:@//Prakhar:1521/xe","system","admin");//lsnrctl command in command promt to check services of  computer
+              conn=DriverManager.getConnection("jdbc:oracle:thin:@//LAPTOP-Q82125JL:1521/xe","advjavabatch","admin");//lsnrctl command in command promt to check services of  computer
               
               JOptionPane.showMessageDialog(null,"Connection done successfully!");
             

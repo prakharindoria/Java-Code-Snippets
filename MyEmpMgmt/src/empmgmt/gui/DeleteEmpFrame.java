@@ -102,53 +102,41 @@ public class DeleteEmpFrame extends javax.swing.JFrame {
 
     private void BtnDeleteEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteEmpActionPerformed
         // TODO add your handling code here:
-        String str=txtEmpNo.getText();
+        String str = txtEmpNo.getText();
 
-if(str.isEmpty()){
+        if (str.isEmpty()) {
 
-JOptionPane.showMessageDialog(null,"Please fill empno", "Empty Values!!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please fill empno", "Empty Values!!", JOptionPane.ERROR_MESSAGE);
 
-return;
+            return;
 
-}
+        }
 
-try
+        try {
+            int eno = Integer.parseInt(str);
+            boolean b = EmpDao.deleteEmp(eno);
 
-{
-int eno=Integer.parseInt(str);
+            if (b == false) {
+                JOptionPane.showMessageDialog(null, "No Record Of EmpNo " + eno + " Present", "Not Found!!", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Record Deleted Sucessfully", "Deleted!!", JOptionPane.INFORMATION_MESSAGE);
+            }
 
-EmpPojo e=EmpDao.deleteEmp(eno);
+        } catch (NumberFormatException nfe) {
 
-if(e==null)
+            JOptionPane.showMessageDialog(null, "Please provide numeric input for eno!!", "Error!!", JOptionPane.ERROR_MESSAGE);
+            nfe.printStackTrace();
+        } catch (SQLException sqlx) {
 
-JOptionPane.showMessageDialog(null,"No Record Of EmpNo "+eno+" Present", "Not Found!!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Problem In The Database!!", "Error!!", JOptionPane.ERROR_MESSAGE);
+            sqlx.printStackTrace();
 
-else
-
-{
-JOptionPane.showMessageDialog(null,"Record Deleted Sucessfully", "Deleted!!", JOptionPane.INFORMATION_MESSAGE);
-}
-
-}
-
-catch(NumberFormatException ex){
-
-JOptionPane.showMessageDialog(null,"Please provide numeric input for eno!!", "Error!!", JOptionPane.ERROR_MESSAGE);
-
-}
-
-catch(SQLException ex){
-
-JOptionPane.showMessageDialog(null,"Problem In The Database!!", "Error!!", JOptionPane.ERROR_MESSAGE);
-
-System.out.println("SQLException is "+ex);
-
-}
+        }
     }//GEN-LAST:event_BtnDeleteEmpActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        OptionFrame optionFrame=new OptionFrame();
+        OptionFrame optionFrame = new OptionFrame();
         optionFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed

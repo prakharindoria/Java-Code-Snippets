@@ -18,6 +18,7 @@ public class LinkedListVsArrayListDemo {
 
         
     }
+    //Time to execute in both cases
     static void getTimeDiff(List <Integer> list){
     long starti=System.currentTimeMillis();
     
